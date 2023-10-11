@@ -23,7 +23,7 @@ public class Account {
     @Column(precision = 13, scale = 2)
     private BigDecimal saldo;
 
-    @Column(name = "additional_limit", precision = 13, scale = 2)
+    @Column(name = "cheque_especial", precision = 13, scale = 2)
     private BigDecimal limite;
 
     public Long getId() {
