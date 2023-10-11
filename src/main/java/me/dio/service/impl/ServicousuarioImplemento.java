@@ -1,6 +1,6 @@
 package me.dio.service.impl;
 
-import me.dio.service.ServicosUsuario;
+import me.dio.service.ServicoUsuario;
 import me.dio.domain.model.User;
 import me.dio.domain.repository.RepositorioUsuario;
 import me.dio.service.exception.BusinessException;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static java.util.Optional.ofNullable;
 @Service
-public class ServicousuarioImplemento implements ServicosUsuario {
+public class ServicousuarioImplemento implements ServicoUsuario {
     private static final Long UNCHANGEABLE_USER_ID = 1L;
 
     private final RepositorioUsuario userRepository;
@@ -79,4 +79,4 @@ public class ServicousuarioImplemento implements ServicosUsuario {
 }
 
 
-}
+
