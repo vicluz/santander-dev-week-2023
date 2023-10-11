@@ -33,26 +33,26 @@ public class ServicousuarioImplemento implements ServicoUsuario {
 
     @Transactional
     public User create(User userToCreate) {
-        ofNullable(userToCreate).orElseThrow(() -> new BusinessException("User to create must not be null."));
-        ofNullable(userToCreate.getConta()).orElseThrow(() -> new BusinessException("User account must not be null."));
-        ofNullable(userToCreate.getCartao()).orElseThrow(() -> new BusinessException("User card must not be null."));
+        ofNullable(userToCreate).orElseThrow(() -> new BusinessException("O usuário a ser criado não deve ser nulo."));
+        ofNullable(userToCreate.getConta()).orElseThrow(() -> new BusinessException("a conta a ser criado não deve ser nulo."));
+        ofNullable(userToCreate.getCartao()).orElseThrow(() -> new BusinessException("o cartão a ser criado não deve ser nulo."));
 
-        this.validateChangeableId(userToCreate.getId(), "created");
+        this.validateChangeableId(userToCreate.getId(), "criar");
         if (userRepository.existsByAccountNumber(userToCreate.getConta().getNumero())) {
-            throw new BusinessException("This account number already exists.");
+            throw new BusinessException("A conta ja existe.");
         }
         if (userRepository.existsByCardNumber(userToCreate.getCartao().getNumero())) {
-            throw new BusinessException("This card number already exists.");
+            throw new BusinessException("numero do cartão ja existe.");
         }
         return this.userRepository.save(userToCreate);
     }
 
     @Transactional
     public User update(Long id, User userToUpdate) {
-        this.validateChangeableId(id, "updated");
+        this.validateChangeableId(id, "atualizar");
         User dbUser = this.findById(id);
         if (!dbUser.getId().equals(userToUpdate.getId())) {
-            throw new BusinessException("Update IDs must be the same.");
+            throw new BusinessException("Os IDs de atualização devem ser iguais.");
         }
 
         dbUser.setNome(userToUpdate.getNome());
@@ -66,14 +66,14 @@ public class ServicousuarioImplemento implements ServicoUsuario {
 
     @Transactional
     public void delete(Long id) {
-        this.validateChangeableId(id, "deleted");
+        this.validateChangeableId(id, "deletar");
         User dbUser = this.findById(id);
         this.userRepository.delete(dbUser);
     }
 
     private void validateChangeableId(Long id, String operation) {
         if (UNCHANGEABLE_USER_ID.equals(id)) {
-            throw new BusinessException("User with ID %d can not be %s.".formatted(UNCHANGEABLE_USER_ID, operation));
+            throw new BusinessException("O usuário com ID %d não pode ser %s.".formatted(UNCHANGEABLE_USER_ID, operation));
         }
     }
 }

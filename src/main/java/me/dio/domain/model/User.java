@@ -18,11 +18,12 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Card cartao;
-    @Column(name = "card_number")
-    private String cardNumber;
 
     @Column(name = "account_number")
     private String accountNumber;
+
+    @Column(name = "card_number")
+    private String cardNumber;
 
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
